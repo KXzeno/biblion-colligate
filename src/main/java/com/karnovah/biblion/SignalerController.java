@@ -12,8 +12,6 @@ public class SignalerController {
   @SendTo("/temp/audits")
   public Signaler signaler(Observer message) throws Exception {
     Thread.sleep(1000); // simulated delay
-    return new Signaler("Hello, " + 
-        HtmlUtils.htmlEscape(message.getSighted()) + "!");
+    return new Signaler("Received: " + HtmlUtils.htmlEscape(message.getSighted()));
   }
-
 }
