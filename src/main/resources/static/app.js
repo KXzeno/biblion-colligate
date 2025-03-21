@@ -1,12 +1,12 @@
 const stompClient = new StompJs.Client({
-  brokerURL: 'ws://localhost:8080/biblion-colligate-websocket'
+  brokerURL: 'ws://localhost:8080/colligate-websocket'
 });
 
 stompClient.onConnect = (frame) => {
   setConnected(true);
   console.log('Connected: ' + frame);
-  stompClient.subscribe('/temp/audits', (rate) => {
-    showRates(JSON.parse(rate.body).content);
+  stompClient.subscribe('/temp/audits', (sighted) => {
+    showRates(JSON.parse(sighted.body).content);
   });
 };
 
@@ -28,7 +28,7 @@ function setConnected(connected) {
   else {
     $("#conversation").hide();
   }
-  $("#rates").html("");
+  $("#audits").html("");
 }
 
 function connect() {
@@ -44,12 +44,12 @@ function disconnect() {
 function sendRate() {
   stompClient.publish({
     destination: "/app/observe",
-    body: JSON.stringify({'rate': $("#rate").val()})
+    body: JSON.stringify({'sighted': $("#sighted").val()})
   });
 }
 
-function showRates(rate) {
-  $("#rates").append("<tr><td>" + rate + "</td></tr>");
+function showRates(sighted) {
+  $("#audits").append("<tr><td>" + sighted + "</td></tr>");
 }
 
 $(function () {
