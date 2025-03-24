@@ -5,7 +5,7 @@ const stompClient = new StompJs.Client({
 stompClient.onConnect = (frame) => {
   setConnected(true);
   console.log('Connected: ' + frame);
-  stompClient.subscribe('/temp/audits', (sighted) => {
+  stompClient.subscribe('/temp/audits/0', (sighted) => {
     showRates(JSON.parse(sighted.body).content);
   });
 };
@@ -43,7 +43,7 @@ function disconnect() {
 
 function sendRate() {
   stompClient.publish({
-    destination: "/app/observe",
+    destination: "/app/observe/0",
     body: JSON.stringify({'sighted': $("#sighted").val()})
   });
 }
