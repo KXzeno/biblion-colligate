@@ -1,5 +1,5 @@
 const stompClient = new StompJs.Client({
-  brokerURL: 'ws://localhost:8080/colligate-websocket'
+  brokerURL: 'wss://biblion-colligate.onrender.com/colligate-websocket'
 });
 
 stompClient.onConnect = (frame) => {
