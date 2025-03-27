@@ -1,0 +1,8 @@
+services:
+  app:
+    image: kathekon/biblion-colligate
+    environment:
+      - WS_BROKER_PREFIX=${WS_BROKER_PREFIX}
+      - WS_APP_PREFIX=${WS_APP_PREFIX}
+      - WS_ENDPOINT=${WS_ENDPOINT}
+      - WS_ALLOWED_ORIGINS=${WS_ALLOWED_ORIGINS}
