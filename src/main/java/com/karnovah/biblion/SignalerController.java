@@ -23,9 +23,10 @@ public class SignalerController {
     try {
       char lastChar = msg.charAt(msg.length() - 1);
       String rate = Character.toString(lastChar);
+      String user = msg.substring(0, msg.length() - 2);
       int updatedRate = Integer.parseInt(rate);
 
-      return new Signaler(String.format("%s %s:%s", "Received:", connections, signalCount + updatedRate);
+      return new Signaler(String.format("%s: %s-%s", user, connections, signalCount + updatedRate));
     } catch (NumberFormatException exc) {
       System.out.printf("%s", exc);
       return new Signaler(String.format("%s%s: %s", "Received: ", HtmlUtils.htmlEscape(msg), "DOES NOT CONFORM TO DATA MODEL"));
