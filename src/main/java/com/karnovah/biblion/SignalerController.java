@@ -13,6 +13,8 @@ import org.springframework.web.util.HtmlUtils;
 public class SignalerController {
   public int signalCount = 0;
   public int connections = 0;
+  // TODO: Along with connection count, add sessionIds. If same user,
+  // append :[] length to end
 
   @MessageMapping("/observe/{id}")
   @SendTo("/temp/audits/{id}")
@@ -42,6 +44,16 @@ public class SignalerController {
 
   @EventListener
   public void handleDisconnectEvent(SessionDisconnectEvent event) {
-    this.connections--; 
+    switch (this.connections) {
+      case 1: 
+        this.signalCount = 0;
+        this.connections--;
+        break;
+      case 0:
+        System.out.printf("%s", "Fallback initiated.");
+        this.signalCount = 0;
+        this.connections = 0;
+      default: this.connections--;
+    }
   }
 }
